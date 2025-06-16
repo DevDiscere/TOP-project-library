@@ -11,9 +11,10 @@ function Book(id, title, author, numberOfPages, datePublished, genre, hasReadBoo
     this.hasReadBook = hasReadBook;
 }
 
-function createBookCard(title, author, numberOfPages, datePublished, genre, hasReadBook) {
+function createBookCard(uniqueId, title, author, numberOfPages, datePublished, genre, hasReadBook) {
     const bookGallery = document.querySelector(".book-gallery");
     const bookCard = document.createElement("article");
+    const removeBookCardButton = document.createElement("button");
     const bookTitle = document.createElement("h3");
     const bookAuthor = document.createElement("p");
     const bookPages = document.createElement("p");
@@ -23,6 +24,20 @@ function createBookCard(title, author, numberOfPages, datePublished, genre, hasR
     const bookHasReadBook = document.createElement("p");
 
     bookCard.className = "book-card";
+    bookCard.setAttribute("data-id", uniqueId);
+
+    removeBookCardButton.className = "remove-button";
+    removeBookCardButton.type = "button";
+    removeBookCardButton.textContent = "Remove";
+    removeBookCardButton.addEventListener("click", () => {
+        const bookCardId = bookCard.getAttribute("data-id");
+        const bookToBeRemoved = myLibrary.findIndex(book => book.id === bookCardId);
+
+        // Remove book object from the myLibrary array using their index
+        myLibrary.splice(bookToBeRemoved, 1);
+        bookCard.remove();
+    });
+
     bookTitle.textContent = title;
     bookAuthor.textContent = author;
     bookPages.textContent = `${numberOfPages} pages`;
@@ -30,6 +45,7 @@ function createBookCard(title, author, numberOfPages, datePublished, genre, hasR
     bookGenre.textContent = genre;
     bookHasReadBook.textContent = hasReadBook ? "Yes, I have read the book" : "No, I haven't read the book";
 
+    bookCard.appendChild(removeBookCardButton);
     bookCard.appendChild(bookTitle);
     bookCard.appendChild(bookAuthor);
     bookCard.appendChild(bookPages);
@@ -41,11 +57,13 @@ function createBookCard(title, author, numberOfPages, datePublished, genre, hasR
 }
 
 function addBookToLibrary(title, author, numberOfPages, datePublished, genre, hasReadBook) {
-    let book = new Book(crypto.randomUUID(), title, author, numberOfPages, datePublished, genre, hasReadBook);
+    const uniqueId = crypto.randomUUID();
+    const book = new Book(uniqueId, title, author, numberOfPages, datePublished, genre, hasReadBook);
     
+    // Add the book object to the myLibrary array
     myLibrary.push(book);
 
-    createBookCard(title, author, numberOfPages, datePublished, genre, hasReadBook);
+    createBookCard(uniqueId, title, author, numberOfPages, datePublished, genre, hasReadBook);
 }
 
 const newBookButton = document.querySelector(".new-book-button");
