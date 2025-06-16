@@ -13,39 +13,34 @@
         <p><em>Your library, one page closer</em></p>
     </header>
     <main class="library-content">
+        <button class="new-book-button" type="button">New Book</button>
+        <dialog>
+            <button class="close-modal-button" type="button">Close</button>
+            <form action="" method="dialog">
+                <label for="title">Title of the book:</label>
+                <input type="text" name="title" id="title" required>
+
+                <label for="author">Author of the book:</label>
+                <input type="text" name="author" id="author" required>
+
+                <label for="pages">Number of Pages:</label><input type="number" name="pages" id="pages" required>
+
+                <label for="date-published">Date of publishing:</label>
+                <input type="date" name="date-published" id="date-published" required>
+
+                <label for="genre">Genre/s:</label>
+                <input type="text" name="genre" id="genre" required>
+
+                <input type="checkbox" name="has-read-book" id="has-read-book">
+                <label for="has-read-book">Have you read the book?</label>
+                
+                <button type="submit">Submit a New Book</button>
+            </form>
+        </dialog>
         <section>
             <h2>Books You've Opened</h2>
             <div class="book-gallery">
-                <article class="book-card">
-                    <h3 class="title">Title is placed here</h3>
-                    <p class="author">Author is placed here</p>
-                    <p class="date-published">Date is placed here</p>
-                    <p class="genre">Genre is placed here</p>
-                </article>
-                <article class="book-card">
-                    <h3 class="title">Title is placed here</h3>
-                    <p class="author">Author is placed here</p>
-                    <p class="date-published">Date is placed here</p>
-                    <p class="genre">Genre is placed here</p>
-                </article>
-                <article class="book-card">
-                    <h3 class="title">Title is placed here</h3>
-                    <p class="author">Author is placed here</p>
-                    <p class="date-published">Date is placed here</p>
-                    <p class="genre">Genre is placed here</p>
-                </article>
-                <article class="book-card">
-                    <h3 class="title">Title is placed here</h3>
-                    <p class="author">Author is placed here</p>
-                    <p class="date-published">Date is placed here</p>
-                    <p class="genre">Genre is placed here</p>
-                </article>
-                <article class="book-card">
-                    <h3 class="title">Title is placed here</h3>
-                    <p class="author">Author is placed here</p>
-                    <p class="date-published">Date is placed here</p>
-                    <p class="genre">Genre is placed here</p>
-                </article>
+                <!-- Book cards are placed here -->
             </div>
         </section>
     </main>
