@@ -11,6 +11,11 @@ function Book(id, title, author, numberOfPages, datePublished, genre, hasReadBoo
     this.hasReadBook = hasReadBook;
 }
 
+Book.prototype.toggleReadStatus = function (bookObject) {
+    currentReadStatus = this.hasReadBook;
+    bookObject.hasReadBook = !currentReadStatus;
+}
+
 function createBookCard(uniqueId, title, author, numberOfPages, datePublished, genre, hasReadBook) {
     const bookGallery = document.querySelector(".book-gallery");
     const bookCard = document.createElement("article");
@@ -20,8 +25,8 @@ function createBookCard(uniqueId, title, author, numberOfPages, datePublished, g
     const bookPages = document.createElement("p");
     const bookDatePublished = document.createElement("p");
     const bookGenre = document.createElement("p");
-    // Will change this into a pill
-    const bookHasReadBook = document.createElement("p");
+    const toggleTrack = document.createElement("label");
+    const toggleButton = document.createElement("input");
 
     bookCard.className = "book-card";
     bookCard.setAttribute("data-id", uniqueId);
@@ -43,7 +48,21 @@ function createBookCard(uniqueId, title, author, numberOfPages, datePublished, g
     bookPages.textContent = `${numberOfPages} pages`;
     bookDatePublished.textContent = datePublished;
     bookGenre.textContent = genre;
-    bookHasReadBook.textContent = hasReadBook ? "Yes, I have read the book" : "No, I haven't read the book";
+
+    toggleTrack.className = "toggle-track";
+
+    toggleButton.className = "toggle-button";
+    toggleButton.type = "checkbox";
+    toggleButton.name = "has-read-book";
+    toggleButton.checked = hasReadBook;
+    toggleButton.addEventListener("click", () => {
+        const bookCardId = bookCard.getAttribute("data-id");
+        const bookToBeUpdated = myLibrary.findIndex(book => book.id === bookCardId);
+
+        myLibrary[bookToBeUpdated].toggleReadStatus(myLibrary[bookToBeUpdated]);
+    });
+
+    toggleTrack.appendChild(toggleButton);
 
     bookCard.appendChild(removeBookCardButton);
     bookCard.appendChild(bookTitle);
@@ -51,7 +70,7 @@ function createBookCard(uniqueId, title, author, numberOfPages, datePublished, g
     bookCard.appendChild(bookPages);
     bookCard.appendChild(bookDatePublished);
     bookCard.appendChild(bookGenre);
-    bookCard.appendChild(bookHasReadBook);
+    bookCard.appendChild(toggleTrack);
 
     bookGallery.appendChild(bookCard);
 }
@@ -70,6 +89,7 @@ const newBookButton = document.querySelector(".new-book-button");
 const dialogModal = document.querySelector("dialog");
 const closeModalButton = document.querySelector(".close-modal-button");
 const modalForm = document.querySelector("form");
+const toggleReadButtons = document.querySelectorAll("toggle-button");
 
 newBookButton.addEventListener("click", () => {
     dialogModal.showModal();

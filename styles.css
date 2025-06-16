@@ -104,3 +104,68 @@ body {
     padding: 1.5rem;
     border-radius: 0.5rem;
 }
+
+.toggle-track {
+  display: flex;
+  width: 100px;
+  height: 30px;
+  background-color: #ffd2cf;
+  border-radius: 100px;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  outline: 2px solid #FF6961;
+}
+
+.toggle-button {
+  appearance: none;
+  background-color: #FF6961;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  position: absolute;
+  top: 2.5px;
+  left: 2.5px;
+  transition: 250ms ease-in-out;
+}
+
+/* Contains the text inside the track */
+.toggle-track::before {
+  content: "Unread";
+  position: relative;
+  left: 5px;
+}
+
+/* Contains the logo of the toggle-button */
+.toggle-button::before {
+  content: '\2715';
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffd2cf;
+}
+
+.toggle-track:has(.toggle-button:checked) {
+  background-color: #d6f4d6;
+  outline: 2px solid #77DD77;
+}
+
+.toggle-button:checked {
+  background-color: #77DD77;
+  transform: translateX(70px);
+  transition: 250ms ease-in-out;
+}
+
+/* Contains the text inside the track */
+.toggle-track:has(.toggle-button:checked)::before {
+  content: "Read";
+  position: relative;
+  left: 0;
+}
+
+/* Contains the logo of the toggle-button */
+.toggle-button:checked::before {
+  content: '\2713';
+  color: #d6f4d6;
+}
